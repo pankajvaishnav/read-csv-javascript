@@ -2,9 +2,9 @@ var reader = require('./CSVReader.js')
 
 var matches = reader.matchesRows();
 var years = reader.getYears();
-
+var victoriesPerYear = {};
 for(var year=0;year<years.length-1;year++){
-    console.log('-------------------Matches_Won_By_Per_Team: '+years[year]+'----------------------');
+    //console.log('-------------------Matches_Won_By_Per_Team: '+years[year]+'----------------------');
     var ar1 = [];
     for(var i=matches.length-1;i>0;i--){
         if(matches[i][1]==years[year])
@@ -23,7 +23,7 @@ for(var year=0;year<years.length-1;year++){
         if(count==0)
             teamsYear.push(ar1[i])
     }
-    
+    var countWins = {};
     var x=0;
     for(var team=0; team<teamsYear.length; team++){
         var victories = 0;
@@ -32,6 +32,8 @@ for(var year=0;year<years.length-1;year++){
                 victories++;
             }
         }
-        console.log((++x)+'. '+teamsYear[team]+' : '+victories);
+        countWins[teamsYear[team]] = victories;
     }
+    victoriesPerYear[years[year]] = countWins;
 }
+console.log(victoriesPerYear);
