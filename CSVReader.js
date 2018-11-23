@@ -29,7 +29,6 @@ function deliveriesRows(){
 }
 //----------------calling-getYears--TO_GET_ALL_SEASONS/YEARS
 var years = getYears();
-
 function getYears()
 {
     var year = [];
@@ -46,7 +45,6 @@ function getYears()
     }
     return year;   
 }
-
 //----------------------------------------get-key_Value_Of_Season_And_MatchId-------------------------------------//
 var matchIdSeason = getKeyValue();
 //----------------getKeyValue-function-----------------------------------------//
@@ -144,44 +142,6 @@ function getBowlers(){
     return bowler;
 }
 
-//-------------------------calling-getAllTeams-funuction------------------//
-var allTeams = getAllTeams();
-
-//-----[PER_TEAM_ALL_OVER_THE_YEARS]------------------[DISPLAY]-----------//
-console.log('Matches Won By All The Teams Per Year: ');
-console.log('----------------------------------------');
-var x=0;
-for(var i=0;i<allTeams.length;i++){
-    var count=0;
-    for(var j=1;j<matches.length;j++){
-        if(allTeams[i]==matches[j][10]){
-            count++;
-        }
-    }
-}
-
-//-------------------------gettingAllTeams-function-----------------------//
-function getAllTeams()
-{
-    var ar11 = [];
-    for(var i=matches.length-1;i>0;i--){
-            ar11.push(matches[i][5]);
-    }
-    var team1 = [];
-
-    for(var i=ar11.length-1;i>0;i--){
-        var count = 0;
-        for(var j=i-1;j>0;j--){
-            if(ar11[i]==ar11[j]){
-                count++;
-                break;
-            }
-        }
-        if(count==0)
-            team1.push(ar11[i])
-    }
-    return team1;
-}
 //-------------------------------EXPORT_MODULES----------------------------------//
 module.exports =  {
     getYears : getYears,
@@ -189,6 +149,6 @@ module.exports =  {
     getTeams : getTeams,
     deliveriesRows : deliveriesRows,
     getKeyValue : getKeyValue,
-    getAllTeams : getAllTeams,
+   
     sortValues : sortValues
 }
