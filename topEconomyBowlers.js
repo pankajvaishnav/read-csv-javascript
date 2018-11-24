@@ -6,8 +6,7 @@ var sortBwlr = reader.sortValues();
 var topEcoBowlers = {};
 for(var bowler = 0; bowler < 10; bowler++){    
     var str = sortBwlr[bowler].toString();
-    var temp = str.split(',');
-    topEcoBowlers[temp[0]] = temp[1];
+    var bowlerEconomy = str.split(',');
+    topEcoBowlers[bowlerEconomy[0]] = bowlerEconomy[1];
 }
-
 console.log(topEcoBowlers)
