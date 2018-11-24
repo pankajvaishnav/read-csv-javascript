@@ -3,14 +3,14 @@ var fs = require('fs')
 console.log('Executed before file reading');
 //------------------------READ-matches.csv_FILE-------------------//
 var match = fs.readFileSync('matches.csv', 'utf8');
-var matchRow = match.split('\n');
+var matchesRow = match.split('\n');
 //------------------------READ-deliveries.csv_FILE----------------//
 var delivery = fs.readFileSync('deliveries.csv', 'utf8');
 var deliveriesRow = delivery.split('\n');
 //------------------------matches.csv_ROWS------------------------//
 var matches = [];
-for(var match = 0;match<matchRow.length;match++){
-    matches[match] = matchRow[match].split(',');
+for(var match = 0;match<matchesRow.length;match++){
+    matches[match] = matchesRow[match].split(',');
 }
 function matchesRows(){
     return matches;
