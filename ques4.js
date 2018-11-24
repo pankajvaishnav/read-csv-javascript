@@ -1,41 +1,29 @@
 var fs = require('fs')
 var csv = require('fast-csv')
-require('./IdOfAnySeason.js')();
+require('./utils.js')();
 var deliveriesStream = fs.createReadStream('deliveries.csv');
-var economicalBwrsPerSeason = {};
-var blrAllRuns={};
-var blrAllBolls={};
-var season = '2015'
-var matchesIn2015 = getIdOfAnySeason(season);
+var extraRunsPerTeam = {};
+var season = '2016'
+var matchesIn2016 = getIdOfAnySeason(season);
 csv
 .fromStream(deliveriesStream, {headers : true})
 .on("data", function(delivery){
-  if (existInArray(delivery['match_id'],matchesIn2015)){
-   let runPerBall=parseInt(delivery['total_runs'])-parseInt(delivery['bye_runs'])-parseInt(delivery['legbye_runs']);
-   if (blrAllRuns[delivery['bowler']] !== undefined){
-       blrAllRuns[delivery['bowler']] +=runPerBall;
-    } else {
-       blrAllRuns[delivery['bowler']] =runPerBall;
-    }
-    if (blrAllBolls[delivery['bowler']] !== undefined){
-       blrAllBolls[delivery['bowler']] +=1;
-    } else {
-       blrAllBolls[delivery['bowler']] =1;
-    }
-
-
-
-
-
-  }
-
-  for(var x in blrAllBolls){
-      blrAllOvers[x]=blrAllBolls[x]/6;
+  if (existInArray(delivery['match_id'],matchesIn2016)){
+      var totalRuns = parseInt(delivery['total_runs']);
+      var wideRuns = parseInt(delivery['wide_runs']);
+      var noBallRuns = parseInt(delivery['noball_runs']);
+      if (extraRunsPerTeam[delivery['bowler']] !== undefined) {
+          extraRunsPerTeam[delivery['bowler']] += (totalRuns - wideRuns - noBallRuns)
+      }
+      else {
+          extraRunsPerTeam[delivery['bowler']] = parseInt(delivery['extra_runs'])
+      }
   }
 })
 .on("end", function(){
-   console.log(blrAllOvers);
+   console.log(extraRunsPerTeam);
 });
+
 function existInArray(value,array){
    var count=array.length;
    for(var i=0;i<count;i++){
@@ -44,3 +32,4 @@ function existInArray(value,array){
    }
    return false;
 }
+
